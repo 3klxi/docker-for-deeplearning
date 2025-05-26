@@ -123,7 +123,4 @@ docker run -it -v $(pwd):/root/workspace ubuntu2204_python311_cuda126
 
 **karenxindongle@126.com**
 
----
-
-如果你要发布到 Docker Hub 或 GitHub 项目，这个 README 是完全 ready-to-go 的 ✅  
-你还想我帮你补一份 `.devcontainer.json` 吗？让你 VSCode 一键连接容器直接开发？😎
+>Welcome to fork!
