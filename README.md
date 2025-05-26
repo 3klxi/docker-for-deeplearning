@@ -1,7 +1,3 @@
-当然可以！这是一份为你当前 Dockerfile 专门定制的 **README 模板**，适合发布到 GitHub 或 DockerHub 项目页 👇
-
----
-
 # 🚀 Ubuntu 22.04 Dev Environment with Python 3.11, CUDA 12.6, Conda, SSH & FTP
 
 A complete developer-ready Docker image based on Ubuntu 22.04, with:
