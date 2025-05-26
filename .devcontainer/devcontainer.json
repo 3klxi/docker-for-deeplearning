@@ -1,0 +1,35 @@
+{
+    "name": "Ubuntu 22.04 Dev - Python3.11 + CUDA12.6 + Conda",
+    "image": "ubuntu2204_python311_cuda126",
+    "runArgs": [
+      "--cap-add=SYS_PTRACE",
+      "--security-opt",
+      "seccomp=unconfined",
+      "-p", "2222:22",
+      "-p", "21:21",
+      "-p", "20:20",
+      "-p", "40000-40010:40000-40010"
+    ],
+    "workspaceFolder": "/root/workspace",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-python.python",
+          "ms-toolsai.jupyter",
+          "ms-azuretools.vscode-docker",
+          "ms-vscode.cpptools",
+          "ms-vscode.remote-containers"
+        ],
+        "settings": {
+          "python.defaultInterpreterPath": "/opt/miniconda3/envs/devenv/bin/python",
+          "terminal.integrated.defaultProfile.linux": "bash"
+        }
+      }
+    },
+    "postCreateCommand": "echo '✅ Dev container is ready. Conda env is activated on login.'",
+    "remoteUser": "root",
+    "mounts": [
+      "source=${localWorkspaceFolder},target=/root/workspace,type=bind,consistency=cached"
+    ]
+  }
+  

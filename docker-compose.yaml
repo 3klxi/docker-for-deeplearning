@@ -1,0 +1,23 @@
+# version: "3.9"
+
+services:
+  devbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devbox
+    ports:
+      - "20:20"                   # FTP 数据端口（主动模式）
+      - "21:21"                   # FTP 控制端口
+      - "22:22"                   # SSH
+      - "40000-40010:40000-40010" # FTP 被动端口范围
+    environment:
+      PASV_ADDRESS: ${PASV_ADDRESS:-127.0.0.1}  # 可从 .env 读取或默认本地
+    restart: unless-stopped
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    runtime: nvidia
