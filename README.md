@@ -1,34 +1,36 @@
-# 🚀 Ubuntu 22.04 Dev Environment with Python 3.11, CUDA 12.6, Conda, SSH & FTP
+> 💡 本页为中文版本 | [🌐 Switch to English Version](./README.en.md))
 
-A complete developer-ready Docker image based on Ubuntu 22.04, with:
+# 🚀 基于 Ubuntu 22.04 的开发环境镜像（含 Python 3.11、CUDA 12.6、Conda、SSH、FTP）
 
-- 🔧 System tools (gcc, vim, curl, git, etc.)
-- 🐍 Python 3.11 (built from source)
-- 🧪 Miniconda with an auto-activated `devenv`
-- ⚡ CUDA Toolkit 12.6 (NVIDIA official repo)
-- 🔐 SSH server (root login enabled)
-- 📁 FTP server (vsftpd, passive mode supported)
-- 🚀 Designed for AI, ML, Web3, or backend Python-based development
+一个开箱即用的开发者友好型 Docker 镜像，基于 Ubuntu 22.04，内置：
 
----
-
-## 📦 Image Info
-
-| Feature         | Details                                         |
-|----------------|--------------------------------------------------|
-| Base Image      | `ubuntu:latest` (22.04)                         |
-| Python Version  | 3.11.8 (compiled from source)                   |
-| Conda Version   | Latest Miniconda                                |
-| CUDA Version    | 12.6                                            |
-| SSH             | Enabled, root login, password: `password`       |
-| FTP             | Enabled, passive mode `40000-40010`             |
-| Dev Env         | Conda env `devenv` with `requirements.txt`      |
+* 🔧 系统工具（gcc、vim、curl、git 等）
+* 🐍 Python 3.11（源码编译）
+* 🧪 Miniconda，自动激活名为 `devenv` 的环境
+* ⚡ CUDA Toolkit 12.6（使用 NVIDIA 官方仓库安装）
+* 🔐 SSH 服务器（启用 root 登录）
+* 📁 FTP 服务器（vsftpd，支持被动模式）
+* 🚀 面向 AI、机器学习、Web3、后端开发等 Python 场景设计
 
 ---
 
-## 🛠 Build Instructions
+## 📦 镜像信息
 
-If you'd like to build the image locally:
+| 特性        | 详情                                        |
+| --------- | ----------------------------------------- |
+| 基础镜像      | `ubuntu:latest`（22.04）                    |
+| Python 版本 | 3.11.8（源码编译）                              |
+| Conda 版本  | 最新 Miniconda                              |
+| CUDA 版本   | 12.6                                      |
+| SSH       | 已启用，root 登录，密码：`password`                 |
+| FTP       | 已启用，被动端口范围：`40000-40010`                  |
+| 开发环境      | Conda 环境 `devenv`，自动安装 `requirements.txt` |
+
+---
+
+## 🛠 构建镜像
+
+若你希望在本地构建此镜像：
 
 ```bash
 docker build -t ubuntu2204_python311_cuda126 .
@@ -36,15 +38,15 @@ docker build -t ubuntu2204_python311_cuda126 .
 
 ---
 
-## 🚀 Run the Container
+## 🚀 运行容器
 
-### 🔧 Basic (interactive shell)
+### 🔧 基础交互模式（命令行）
 
 ```bash
 docker run -it ubuntu2204_python311_cuda126
 ```
 
-### 🔐 With SSH & FTP (background mode)
+### 🔐 启用 SSH 和 FTP（后台模式）
 
 ```bash
 docker run -d \
@@ -55,63 +57,63 @@ docker run -d \
   ubuntu2204_python311_cuda126
 ```
 
-You can then:
+然后你可以：
 
-- SSH: `ssh root@localhost -p 2222` (password: `password`)
-- FTP: connect to port `21` (user: `root`, password: `password`)
+* SSH 登录：`ssh root@localhost -p 2222`（密码：`password`）
+* FTP 连接：使用端口 `21`，用户名：`root`，密码：`password`
 
 ---
 
-## 🧪 Conda Environment
+## 🧪 Conda 环境说明
 
-The container includes a pre-created conda env called `devenv`.
+容器内预置名为 `devenv` 的 Conda 环境。
 
 ```bash
 conda activate devenv
 ```
 
-On container login, the environment is automatically activated.
+容器登录时会自动激活该环境。
 
-If you have a `requirements.txt`, it will be pre-installed into the env during build.
-
----
-
-## 🌐 FTP Passive Mode
-
-Supports passive FTP connections via:
-
-- Ports: `40000-40010`
-- External IP: configured via `PASV_ADDRESS` env variable (default: `127.0.0.1`)
+若你在构建镜像前准备了 `requirements.txt`，它将被自动安装至该环境中。
 
 ---
 
-## 🧙‍♂️ Start Script
+## 🌐 FTP 被动模式
 
-Container starts via:
+支持 FTP 被动连接，配置如下：
+
+* 端口范围：`40000-40010`
+* 外部 IP：可通过环境变量 `PASV_ADDRESS` 设置（默认：`127.0.0.1`）
+
+---
+
+## 🧙‍♂️ 启动脚本
+
+容器通过以下脚本启动：
 
 ```bash
 /start.sh
 ```
 
-This script:
+该脚本会：
 
-- Starts SSH
-- Starts FTP
-- Keeps container running via `tail -f /dev/null`
+* 启动 SSH 服务
+* 启动 FTP 服务
+* 通过 `tail -f /dev/null` 保持容器持续运行
 
-You can override the CMD if needed.
-
----
-
-## 📂 Customize Requirements
-
-Update your `requirements.txt` in the project root before build.
+你也可以自定义启动命令（CMD）。
 
 ---
 
-## 🧱 Persistent Volumes (optional)
+## 📂 自定义 Python 包依赖
 
-Mount your local workspace:
+在构建镜像前，在项目根目录下更新 `requirements.txt`。
+
+---
+
+## 🧱 可选的持久化挂载
+
+挂载本地工作目录到容器中：
 
 ```bash
 docker run -it -v $(pwd):/root/workspace ubuntu2204_python311_cuda126
@@ -119,8 +121,10 @@ docker run -it -v $(pwd):/root/workspace ubuntu2204_python311_cuda126
 
 ---
 
-## 💬 Maintainer
+## 💬 维护者
 
-**karenxindongle@126.com**
+**[karenxindongle@126.com](mailto:karenxindongle@126.com)**
 
->Welcome to fork!
+> 欢迎 fork 与交流！
+
+---
