@@ -35,6 +35,10 @@
 ```bash
 docker build -t ubuntu2204_python311_cuda126 .
 ```
+或者直接拉取我在构建好的镜像：
+```bash
+docker pull 3klxi/ckl-dl-images:ubuntu2204_python311_cuda126_torch26
+```
 
 ---
 
